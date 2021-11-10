@@ -19,7 +19,7 @@
     // detect objects in the image.
     for (let i = 0; i < 10; i++) {
         console.time('Prediction time');
-        model.detect(img).then(predictions => {
+        await model.detect(img).then(predictions => {
         console.log('Predictions: ', predictions);
         
         });

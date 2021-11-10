@@ -20,7 +20,7 @@
     console.time('iter10 time');
     for (let i = 0; i < 10; i++) {
         console.time('Prediction time');
-        model.classify(img).then(predictions => {
+        await model.classify(img).then(predictions => {
           console.log('Predictions: ');
           console.log(predictions);  
         });
