@@ -1,0 +1,59 @@
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/deeplab"></script>
+
+<img id="img" src="ade20k.jpg" width="500" height="227" alt=""/>
+
+<canvas id="person" width="500" height="227">
+  
+</canvas>
+
+
+<script>
+    
+const loadModel = async () => {
+  const modelName = 'ade20k';   // set to your preferred model, either `pascal`, `cityscapes` or `ade20k`
+  const quantizationBytes = 2;  // either 1, 2 or 4
+  return await deeplab.load({base: modelName, quantizationBytes});
+};
+    
+const translateSegmentationMap = async (segmentationMap) => {
+  return await deeplab.toSegmentationImage(
+      deeplab.getColormap(model), deeplab.getLabels(model), segmentationMap)
+};
+
+const img = document.getElementById('img');
+// var pixels = tf.browser.fromPixels(img);
+// pixels = tf.image.resizeBilinear(pixels, [227, 500]);//227, 500, 3
+// console.log(pixels)
+// const input = tf.zeros([227, 500, 3]);
+// ...
+    
+const predict = async () => {
+    
+    const model = await loadModel();
+    
+    for (let i = 0; i < 10; i++) {
+        console.time("predict time");
+        const output = model.segment(img).then((output) =>{
+            
+            const {legend, height, width, segmentationMap} = output
+            console.log(`The predicted classes are ${JSON.stringify(legend)}`);
+            //             console.log(segmentationMap);
+            var canvas = document.getElementById('person');
+            //             canvas.style.width = '100%';
+            //             canvas.style.height = '100%';
+            canvas.width = width;
+            canvas.height = height;
+            ctx = canvas.getContext('2d');
+            var imgdata = new ImageData(segmentationMap, width, height);
+            ctx.putImageData(imgdata, 0, 0);
+        });
+        console.timeEnd("predict time");
+    };
+};
+
+predict();
+ 
+
+    
+</script>
