@@ -3,7 +3,7 @@ var fs = require('fs');
 var app = http.createServer(function(request,response){
     var url = request.url;
     if(request.url == '/'){
-      url = '/deeplab.html';
+      url = '/blazeface.html';
     }
     if(request.url == '/favicon.ico'){
       return response.writeHead(404);
