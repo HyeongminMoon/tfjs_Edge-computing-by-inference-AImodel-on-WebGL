@@ -12,7 +12,7 @@ I recommend you to notice this references.
 * [pytorch to onnx](https://docs.microsoft.com/ko-kr/windows/ai/windows-ml/tutorials/pytorch-convert-model)
 * [onnx to tensorflow](https://github.com/onnx/onnx-tensorflow)
 * [tensorflow to tfjs](https://www.tensorflow.org/js/guide/conversion)
-* [tensorflow lite qutization]
+* [tensorflow lite quantization](https://www.tensorflow.org/lite/performance/post_training_quantization)
 
 ### What I did
 * Convert pretrained Pytorch model to onnx
