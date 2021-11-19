@@ -7,12 +7,12 @@ All valuable implements are in test.js
 
 I recommend you to notice this references.
 ### reference 
-[Tensorflow.js](https://www.tensorflow.org/js)
-[Tfjs api](https://js.tensorflow.org/api/latest/)
-[pytorch to onnx](https://docs.microsoft.com/ko-kr/windows/ai/windows-ml/tutorials/pytorch-convert-model)
-[onnx to tensorflow](https://github.com/onnx/onnx-tensorflow)
-[tensorflow to tfjs](https://www.tensorflow.org/js/guide/conversion)
-[tensorflow lite qutization]
+* [Tensorflow.js](https://www.tensorflow.org/js)
+* [Tfjs api](https://js.tensorflow.org/api/latest/)
+* [pytorch to onnx](https://docs.microsoft.com/ko-kr/windows/ai/windows-ml/tutorials/pytorch-convert-model)
+* [onnx to tensorflow](https://github.com/onnx/onnx-tensorflow)
+* [tensorflow to tfjs](https://www.tensorflow.org/js/guide/conversion)
+* [tensorflow lite qutization]
 
 ### What I did
 * Convert pretrained Pytorch model to onnx
