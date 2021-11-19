@@ -5,7 +5,7 @@ Test tensorflow js for custom pretrained model(Pytorch U-2NET)
 All valuable implements are in test.js
 
 
-I recommend you to notice this references.
+I recommend you to notice these references.
 ### reference 
 * [Tensorflow.js](https://www.tensorflow.org/js)
 * [Tfjs api](https://js.tensorflow.org/api/latest/)
