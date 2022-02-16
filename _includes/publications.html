@@ -1,5 +1,11 @@
 <head>
     <style>
+      @import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+
+      .jm-font{
+          font-family: 'Jeju Myeongjo', serif;/*웹 폰트 지정*/
+          color: black;
+      }
       .b {
         background-color: #BBDEFB;
         padding: 10px 20px;
@@ -9,55 +15,16 @@
 
 {% if page.title == "Home" %}
 
-<h5> Multi label classification </h5>
-<p> - One of the difficult trademark's feature is figurative. It could be expressed like "the heart shaping cat", "the S shaping chicken", 
-    etc. </p>
-<p> - And trademarks are classificated by ViennaCodes, but It couldn't explain the all image appearance.</p>
-<p> - So we need to make new classification table based on ViennaCodes.</p>
-<p> - We tried to contain the all feature but some are removed due to accuracy. </p>
-<p> - For example, the trademarks' viennacodes distribution is not flat because many trademark contain a Creature.</p>
-<div style="text-align:left">
-<h6> result samples </h6>
-<p><br><img src="https://user-images.githubusercontent.com/32811724/147175829-eca9976a-840c-4c90-be47-417d95fb9dcc.jpg" width="20%" title="det1" alt="det1"></img>
-<img src="https://user-images.githubusercontent.com/32811724/147175831-64ffea5f-4f69-4348-bbea-3eea60051e3f.jpg" width="20%" title="det2" alt="det2"></img>
-<img src="https://user-images.githubusercontent.com/32811724/147175832-6a53944e-3605-420e-8e9b-3692a3a6fa86.jpg" width="20%" title="det3" alt="det3"></img><br/></p>
-</div>
-
-<div class="row g-5 mb-5" style="text-align:left">
-    <div class="col-md-6">
-        <br> </br>
-        <h5> Cosine Similarity </h5>
-        <p> - We transfer learned pretrained model efficientnet-b0 with triplet loss. </p>
-        <p> - To attach triplet loss, we made triple pair dataset by above ViennaCode based trademark classification rules, 
-            select two **Similar** images which has same label and one **Different** images which is selected randomly </p>
-        <p> - And we calculated the Cosine Similarity from it's final fully connected vectors.</p>
-
-        <h5> Image Similarity </h5>
-        <p> - And again we mixed the results with above multi label classification score. </p>
-        <p> - Finally we got final Image Similarity score </p>
-    </div>
-    <div class="col-md-6">
-        <br><img src="https://user-images.githubusercontent.com/32811724/147176073-92a8454d-9985-444d-b262-f7dfd4e51bd1.png" width="49%"></img>
-        <img src="https://user-images.githubusercontent.com/32811724/147176079-8fce7cc7-5017-4ead-9c3b-649fd01e1a67.png" width="49%"></img></br>
-        <br><img src="https://user-images.githubusercontent.com/32811724/147176080-073d99c5-0941-4394-bc08-d59c4fd16fd1.png" width="49%"></img>
-        <img src="https://user-images.githubusercontent.com/32811724/142619840-5c51e3bb-9ec6-44ee-a3bc-63b35ebf0211.png" width="49%"></img></br>
-    </div>
-</div>
-
-<div class="row g-5 mb-5">
-    <div class="col-md-6">
-        <img src="https://user-images.githubusercontent.com/32811724/142619590-b5fa63a2-6b15-4720-9d99-cbd15fddc3c7.png" width="90%">
-        <img src="https://user-images.githubusercontent.com/32811724/142619604-3c5aeaad-fa1d-4b18-b169-804314554c2e.png" width="90%">
-    </div>
-    <div class="col-md-6">
-        <br> </br>
-        <h5> Similar trademark searching service </h5>
-        <p> As an application of this repository, we made a Similar trademark seraching service. </p>
-        <br> </br>
-        <h5> Patent </h5>
-        <A href = "https://doi.org/10.8080/1020200181271">Patent METHOD OF SEARCHING TRADEMARKS AND APPARATUS FOR SEARCHING TRADEMARKS</A>
-    </div>
-</div>
+<h5 class="jm-font"> 머리말 </h5>
+<p class="jm-font"> - 이번에는 Tensorflow js와 WebGL을 통해 서버에서가 아닌 기기의 자원으로 AI가 동작하게 하는 방법을 알아본다. 더불어 이 과정에서 다른 확장자의 모델끼리의 변환과
+                      경량화에 대해서도 조금 다룬다.</p>
+<p class="jm-font"> - 평소에 이런 고민을 자주 하곤 한다. 기술이 비약적으로 발전하면서 개인이 좋은 성능의 컴퓨터를 가질 수 있게되었다. 그것도 주머니속에 넣고 다닐 수 있는 스마트폰은
+                      거의 모두가 가지고 있다. 그 외에도 데스크탑, 노트북, 심지어는 자동차 등의 다양한 기기에도 꽤 좋은 성능의 컴퓨터가 들어간다. 근데 이 좋은 성능의 컴퓨터들을 항상
+                      100% 사용하지는 않는다. 그래픽 작업이 필요해서 비싸게 구입한 그래픽카드는 웹 서핑하는 동안 차갑게 식어있다. 나는 가끔 이런 자원들이 아깝다고 생각한다. 티끌모아
+                      태산이라고 이러한 자원들을 긁어모아 사용할 수 있다면 그또한 얼마나 효율적인 자원활용이 아니겠는가.</p>
+<p class="jm-font"> - 자연스럽게 엣지컴퓨팅에 대해서도 관심을 가지게 되었다. 엣지컴퓨팅이란 이러한 사용자 주변의 자원들을 분산하여 활용하는 것을 말한다. 만약 내가 AI를 이용해 작동하는
+                      어플리케이션을 배포했다면, 큰 GPU들이 있는 서버를 가지고 있어야하고 모든 사용자들의 AI동작은 이 서버에서 동작한다. 이때 만약 사용자들의 개인pc, 스마트폰에서 AI가
+                      알아서 자원을 긁어와서 동작한다면? 서버의 자원부하가 해소된다. 그리고 내 손안에서 자글자글하게 AI가 돌아가고 있다는 것이 꽤나 재밌다!</p>
 
 <div class="row g-5 mb-5" style="text-align:left">
 <hr width = "90%" color = "black">
