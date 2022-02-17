@@ -107,7 +107,7 @@ var canvas = document.getElementById('person');
 canvas.style.width = '90%';
 ctx = canvas.getContext('2d');
 const demo_clear_img = new Image();
-demo_clear_img.crossOrigin = "Anonymous";
+demo_clear_img.crossOrigin = "http://profile.ak.fbcdn.net/crossdomain.xml";
 demo_clear_img.src = "/assets/img/demo_clear.jpg";
 demo_clear_img.onload = function(){
     ctx.drawImage(demo_clear_img, 0, 0)
