@@ -61,8 +61,84 @@
 <p class="jm-font"> 어떻게든 당신의 모델을 tensorflow 형식으로 바꿨다면 축하한다. 여기까지 왔다면 그 뒤는 간단하다. (tfjs든 tflite든 결국 tensorflow에서 만들었기에 당연히 호환이 잘된다.)
     tfjs에서 제공하는 변환기를 사용해서 tfjs 형식으로 바꿔주면 WebGL등의 방식을 이용할 수 있다. api문서를 참고하여 당신의 inference코드를 javascript로 번역해주면 끝이다. tfjs 깃허브를 참고하면
     변환기에서 양자화 하는 인수가 있다. 사용해보니 그다지 체감은 안된다.</p>
-<p class="jm-font"> </p>
+<p class="jm-font"> 다음은 tflite를 사용하는 방법이다. tfjs와 똑같이 사용하는 것은 아니고, tflite용 api가 따로 있다. 알파버전으로 제공하는 기능이 매우 한정되어있고, cpu밖에 쓰지 못한다.
+    그럼에도 불구하고 이 방식을 추천한다. gpu활용은 아직 문제가 많으니 경량화라도 잘해서 문제없는 cpu로 동작시키는게 맘편하달까. tflite 모델은 이름에서부터 경량화를 목적으로 함이 드러나듯이
+     여러가지 양자화 방법을 제공한다. 여기를 참고하여 커스텀 모델에 맞게 양자화 해보길 바란다.</p>
 <br></br>
+
+<h5 class="jm-font"> <b>예제</b> </h5>
+<div class="row g-5 mb-5">
+    <div class="col-md-6">
+        
+        <img id="img" src="https://user-images.githubusercontent.com/32811724/147175762-2749386f-3c38-4a8a-89a5-80928e00e381.jpg" alt="" width="90%"/>
+        <input type="button" id="button1" onclick="predict();" value="demo"/>
+        <form method="post" enctype="multipart/form-data">
+        <input type="file" id="button2" onchange="changeimg(this);" accpet="image/*" value="upload image"/>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <canvas id="person">
+        </canvas>
+    </div>
+</div>
+<script>
+function changeimg(input) {
+    var file = input.files[0];
+    document.getElementById("img").src = URL.createObjectURL(file);
+    predict();
+}
+    
+const loadModel = async () => {
+  const modelName = 'ade20k';   // set to your preferred model, either `pascal`, `cityscapes` or `ade20k`
+  const quantizationBytes = 2;  // either 1, 2 or 4
+  return await deeplab.load({base: modelName, quantizationBytes});
+};
+    
+const translateSegmentationMap = async (segmentationMap) => {
+  return await deeplab.toSegmentationImage(
+      deeplab.getColormap(model), deeplab.getLabels(model), segmentationMap)
+};
+
+const img = document.getElementById('img');
+// var pixels = tf.browser.fromPixels(img);
+// pixels = tf.image.resizeBilinear(pixels, [227, 500]);//227, 500, 3
+// console.log(pixels)
+// const input = tf.zeros([227, 500, 3]);
+// ...
+var canvas = document.getElementById('person');
+canvas.style.width = '90%';
+ctx = canvas.getContext('2d');
+const demo_clear_img = new Image();
+demo_clear_img.src = "/assets/img/demo_clear.jpg";
+demo_clear_img.onload = function(){
+    ctx.drawImage(demo_clear_img, 0, 0)
+}
+    
+const predict = async () => {
+    
+    const model = await loadModel();
+
+    const output = await model.segment(img).then((output) =>{
+//         console.timeEnd("predict time");
+        const {legend, height, width, segmentationMap} = output
+//         console.log(`The predicted classes are ${JSON.stringify(legend)}`);
+        //             console.log(segmentationMap);
+        var canvas = document.getElementById('person');
+            canvas.style.width = '90%';
+        canvas.width = width;
+        canvas.height = height;
+//         console.log(width, height)
+        ctx = canvas.getContext('2d');
+        var imgdata = new ImageData(segmentationMap, width, height);
+        ctx.putImageData(imgdata, 0, 0);
+    });
+
+};
+
+
+// predict();
+</script>
+
 
 <div class="row g-5 mb-5" style="text-align:left">
 <hr width = "90%" color = "black">
