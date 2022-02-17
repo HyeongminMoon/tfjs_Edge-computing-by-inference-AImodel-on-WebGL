@@ -15,7 +15,7 @@
 
 {% if page.title == "Home" %}
 
-<h5 class="jm-font"> 머리말 </h5>
+<h5 class="jm-font"> <b>머리말</b> </h5>
 <p class="jm-font"> - 이번에는 Tensorflow js와 WebGL을 통해 서버에서가 아닌 기기의 자원으로 AI가 동작하게 하는 방법을 알아본다. 더불어 이 과정에서 다른 확장자의 모델끼리의 변환과
                       경량화에 대해서도 조금 다룬다.</p>
 <p class="jm-font"> - 평소에 이런 고민을 자주 하곤 한다. 기술이 비약적으로 발전하면서 개인이 좋은 성능의 컴퓨터를 가질 수 있게되었다. 그것도 주머니속에 넣고 다닐 수 있는 스마트폰은
@@ -28,13 +28,15 @@
 <p class="jm-font"> - 그리고 WebGL을 통해 AI를 동작해야하는 가장 핵심 이유는 환경이다. 딥러닝을 조금이라도 개발해봤으면 알겠지만 CUDA, CuDNN 덕분에 개발환경 구축이 꽤나 까다롭고,
                       따라서 AI서비스를 구축했을 때 사용자들에게 모두 CUDA를 설치하라고 할 수는 없는 노릇이다. WebGL은 웹에서 화려한 그래픽동작을 위해 사용자의 GPU를 알아서 끌어다 쓰는
                       기능을 가지고 있으므로, 결론적으로 CUDA없이 사용자의 GPU를 사용하여 AI를 동작할 수 있게되는 아주 중요한 의의를 가진다.</p>
+<br></br>
 
-<h5 class="jm-font"> 요약 </h5>
+<h5 class="jm-font"> <b>요약</b> </h5>
 <p class="jm-font"> 1. tfjs환경: 텐서플로우에서 tfjs라는 자바스크립트용 API를 제공한다. html에서 라이브러리를 바로 import하는 방법과, nodejs같은 패키지를 사용하는 방법이 있다.
     그리고 백엔드도 여러가지 선택 할 수 있는데, 자세한 내용은 <a href="https://www.tensorflow.org/js?hl=ko">공식 홈페이지</a>나 <a href="https://github.com/tensorflow/tfjs">깃허브 레파지토리</a>를 참고하는 것이 좋다.</p>
 <p class="jm-font"> 2. 모델: 위 tfjs공식 홈페이지에서 튜토리얼 모델들을 많이 제공한다. 이를 사용하거나 직접 커스텀 모델을 사용가능 한 폼으로 바꾸는 방법이 있다. <a href="https://www.tensorflow.org/js/guide/conversion?hl=ko">이곳</a>
     에서 tensorflow saved model, keras모델을 tfjs에서 사용할 수 있도록 변환기를 제공한다. pytorch모델 등의 다른 형식의 모델이 있다면 tensorflow 모델로 변환해야한다. 그리고 tensorflow lite를 사용할 수도 있다. 
     자세한건 뒤에서 다시 다루겠다.</p>
+<br></br>
 
 <h5 class="jm-font"> tensorflow javascript </h5>
 <p class="jm-font"> 우선 API는 <a herf="https://js.tensorflow.org/api/latest/">여기서</a> 확인할 수 있다. 상단에 보면 여러가지 환경에 따라 API문서가 정리되어 있다.</p>
@@ -46,8 +48,9 @@
 <p class="jm-font"> 결론은 다행히 아직 활발하게 이 문제를 해결하려고 하고 있는 듯 하니 큰 모델은 우선 좀 기다리자. 튜토리얼로 제공되는 가벼운 모델로 학습하여 동작할만한 서비스는 사용해도 좋다.
     또는 tensorflow lite를 사용하면 그나마 낫다. 아직 tensorflow lite javascript는 알파버전이라 cpu에서만 동작한다. (결국 얘도 기다려야한다.) 그래도 tflite에서 제공하는 양자화등의 방법으로 모델을 경량화하면
     WebGL gpu로 돌리는 것보다는 조금 더 무거운 모델을 돌릴 수 있다. 그리고 적어도 느릴지언정 메모리 누수의 문제는 없다.</p>
+<br></br>
 
-<h5 class="jm-font"> 모델 변환 & 경량화 </h5>
+<h5 class="jm-font"> <b>모델 변환 & 경량화</b> </h5>
 <p class="jm-font"> 상기된 이유로 사실 이 글의 핵심은 여기다. pytorch, onnx, tensorflow 간 모델 변환과, tensorflow->tfjs, tensorflow->tflite, 그리고 양자화를 통한 경량화를 할 수 있다.
     이부분은 좀 어렵다. 미래의 내가 봤을때 조금이나마 도움이 되도록 작성한다.</p>
 <p class="jm-font"> 우선 pytorch나 tensorflow는 라이브러리로 많이 들어봤지만 onnx는 조금  생소한데, onnx는 쉽게말하면 모델 통합을 위한 라이브러리다. 개발도 할 수있다곤 알고있다. 즉, 모든 모델의 변환은 onnx를 통하면 할 수 있다.
@@ -59,6 +62,7 @@
     tfjs에서 제공하는 변환기를 사용해서 tfjs 형식으로 바꿔주면 WebGL등의 방식을 이용할 수 있다. api문서를 참고하여 당신의 inference코드를 javascript로 번역해주면 끝이다. tfjs 깃허브를 참고하면
     변환기에서 양자화 하는 인수가 있다. 사용해보니 그다지 체감은 안된다.</p>
 <p class="jm-font"> </p>
+<br></br>
 
 <div class="row g-5 mb-5" style="text-align:left">
 <hr width = "90%" color = "black">
