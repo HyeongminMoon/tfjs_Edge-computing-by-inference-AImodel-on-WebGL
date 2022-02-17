@@ -32,14 +32,14 @@
 
 <h5 class="jm-font"> <b>요약</b> </h5>
 <p class="jm-font"> 1. tfjs환경: 텐서플로우에서 tfjs라는 자바스크립트용 API를 제공한다. html에서 라이브러리를 바로 import하는 방법과, nodejs같은 패키지를 사용하는 방법이 있다.
-    그리고 백엔드도 여러가지 선택 할 수 있는데, 자세한 내용은 <a href="https://www.tensorflow.org/js?hl=ko">공식 홈페이지</a>나 <a href="https://github.com/tensorflow/tfjs">깃허브 레파지토리</a>를 참고하는 것이 좋다.</p>
-<p class="jm-font"> 2. 모델: 위 tfjs공식 홈페이지에서 튜토리얼 모델들을 많이 제공한다. 이를 사용하거나 직접 커스텀 모델을 사용가능 한 폼으로 바꾸는 방법이 있다. <a href="https://www.tensorflow.org/js/guide/conversion?hl=ko">이곳</a>
+    그리고 백엔드도 여러가지 선택 할 수 있는데, 자세한 내용은 <a style="color:blue" href="https://www.tensorflow.org/js?hl=ko">공식 홈페이지</a>나 <a style="color:blue" href="https://github.com/tensorflow/tfjs">깃허브 레파지토리</a>를 참고하는 것이 좋다.</p>
+<p class="jm-font"> 2. 모델: 위 tfjs공식 홈페이지에서 튜토리얼 모델들을 많이 제공한다. 이를 사용하거나 직접 커스텀 모델을 사용가능 한 폼으로 바꾸는 방법이 있다. <a style="color:blue" href="https://www.tensorflow.org/js/guide/conversion?hl=ko">이곳</a>
     에서 tensorflow saved model, keras모델을 tfjs에서 사용할 수 있도록 변환기를 제공한다. pytorch모델 등의 다른 형식의 모델이 있다면 tensorflow 모델로 변환해야한다. 그리고 tensorflow lite를 사용할 수도 있다. 
     자세한건 뒤에서 다시 다루겠다.</p>
 <br></br>
 
 <h5 class="jm-font"> <b>tensorflow javascript</b> </h5>
-<p class="jm-font"> - 우선 API는 <a href="https://js.tensorflow.org/api/latest/">여기서</a> 확인할 수 있다. 상단에 보면 여러가지 환경에 따라 API문서가 정리되어 있다.</p>
+<p class="jm-font"> - 우선 API는 <a style="color:blue" href="https://js.tensorflow.org/api/latest/">여기서</a> 확인할 수 있다. 상단에 보면 여러가지 환경에 따라 API문서가 정리되어 있다.</p>
 <p class="jm-font"> - 이것 저것 시도해보면서 얻은 팁(사실상 오류.. 지금 tfjs를 사용하기 껄끄러운 이유)들이 있다. tfjs의 default부터 살펴보자면 사용자의 GPU를 끌어다 쓰기위해 WebGL백엔드를 사용한다.
     WebCPU나 WebGPU등도 제공하지만 깃허브 레파지토리의 이슈들을 살펴보면 WebGL이외의 것들은 알파버전이라 오류도 많고 gpu효율도 별로인듯 하다. 근데 이 WebGL에 심각한 오류가 있다. 튜토리얼에서
     제공하는 가벼운 모델(대부분 mobilenet backbone이더라) 사용에는 문제가 없지만, 커스텀 모델 등 큰 모델을 사용하려다가는 메모리 누수가 생긴다. 이슈와 더불어 내 개인적인 생각을 통해 원인을
