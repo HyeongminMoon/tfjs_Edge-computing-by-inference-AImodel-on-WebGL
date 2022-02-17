@@ -103,11 +103,7 @@ const translateSegmentationMap = async (segmentationMap) => {
 };
 
 const img = document.getElementById('img');
-// var pixels = tf.browser.fromPixels(img);
-// pixels = tf.image.resizeBilinear(pixels, [227, 500]);//227, 500, 3
-// console.log(pixels)
-// const input = tf.zeros([227, 500, 3]);
-// ...
+img.crossOrigin = "anonymous";
 var canvas = document.getElementById('person');
 canvas.style.width = '90%';
 ctx = canvas.getContext('2d');
