@@ -68,7 +68,7 @@
 
 <h5 class="jm-font"> <b>예제</b> </h5>
 컴퓨터 사양에 따라 조금 시간이 걸릴 수 있다.
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/tfjs"> </script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/deeplab"></script>
 <div class="row g-5 mb-5">
     <div class="col-md-6">
@@ -103,7 +103,6 @@ const translateSegmentationMap = async (segmentationMap) => {
 };
 
 const img = document.getElementById('img');
-img.crossOrigin = "anonymous";
 var canvas = document.getElementById('person');
 canvas.style.width = '90%';
 ctx = canvas.getContext('2d');
